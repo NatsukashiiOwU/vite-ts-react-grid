@@ -43,6 +43,7 @@ const defaultCardStyles: CSSProperties = {
     borderRadius: 4,
     backgroundColor: "#fff",
 };
+
 const Card = ({ style, selected, filedata, ...props }: CardProps) => {
     const cardStyles: CSSProperties = useMemo(() => {
         if (selected) {
@@ -64,18 +65,16 @@ const Card = ({ style, selected, filedata, ...props }: CardProps) => {
 };
 
 function CheckFileType(filetype: string | undefined){
-    if(filetype==='document'){
-        return("../src/assets/file-svgrepo-com.svg")
+    switch(filetype){
+        case 'document':
+            return("../src/assets/file-svgrepo-com.svg")
+        case 'video':
+            return("../src/assets/clapperboard-play-svgrepo-com.svg")
+        case 'audio':
+            return("../src/assets/file-audio-svgrepo-com.svg")
+        default:
+            return(undefined)
     }
-    
-    if(filetype==='video'){
-        return("../src/assets/clapperboard-play-svgrepo-com.svg")
-    }
-    
-    if(filetype==='audio'){
-        return("../src/assets/file-audio-svgrepo-com.svg")
-    }
-    return(undefined)
 }
 
 /** Just a card holder - no custom logic here only styles */

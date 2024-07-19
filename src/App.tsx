@@ -11,7 +11,20 @@ function App() {
   useEffect(() => {}, [currentPage, itemsPerPage]);
 
   //const items = Array.from({ length: 30 }).map((undefined ,key) => <Card key={key} />);
-  const items = new Array({key:1},{key:2},{key:3},{key:4},{key:5},{key:6},{key:7},{key:8},{key:9},{key:10})
+  const items = new Array(
+    {key:1, filedata:{filetype:'document', filename:'doc1'}},
+    {key:2, filedata:{filetype:'document', filename:'doc2'}},
+    {key:3, filedata:{filetype:'audio', filename:'aud1'}},
+    {key:4, filedata:{filetype:'video', filename:'vid1'}},
+    {key:5, filedata:{filetype:'document', filename:'doc3'}},
+    {key:6, filedata:{filetype:'audio', filename:'aud2'}},
+    {key:7, filedata:{filetype:'document', filename:'doc4'}},
+    {key:8, filedata:{filetype:'video', filename:'vid2'}},
+    {key:9, filedata:{filetype:'document', filename:'doc5'}},
+    {key:10, filedata:{filetype:'document', filename:'doc6'}},
+    {key:11, filedata:{filetype:'document', filename:'doc7'}},
+    {key:12, filedata:{filetype:'document', filename:'doc8'}}
+  )
   //const items = new Set([1,2,3,4,5,6,7,8,9,10]);
 
 
@@ -36,7 +49,7 @@ function App() {
       setCurrentPage(currentPage);
       setItemsPerPage(itemsPerPage);
     }}
-    total={totalPages}
+    total={items.length}
     current={currentPage}>
     </Pagination>
     </>

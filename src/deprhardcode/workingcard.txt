@@ -1,37 +1,36 @@
+/*
 import {
     CSSProperties,
     HTMLAttributes,
     Key,
-    ReactNode,
     useMemo,
-    useState,
+    useState
 } from "react";
 
 import { styled } from "@linaria/react";
-//import Icon from "./Icon";
 
 const cardBorderColor = "#ddd";
 const cardContainerBorderColor = "#eee";
 const cardSelectedColor = "#218ad9";
 
-const CardContianer = styled.div`
-  padding: 1rem;
-  margin: 1rem;
-  border: 1px solid;
-  border-radius: 4px;
-  display: flex;
-  gap: 1rem;
-  border-color: ${cardContainerBorderColor};
+const CardContainer = styled.div`
+    padding: 1rem;
+    margin: 1rem;
+    border: 1px solid;
+    border-radius: 4px;
+    display: flex;
+    gap: 1rem;
+    border-color: ${cardContainerBorderColor};
 `;
 
-type CardProps = HTMLAttributes<HTMLDivElement> & {
-    selected?: boolean;
+type CardProps = HTMLAttributes<HTMLDivElement> &{
     key?: Key;
+    selected?: boolean;
     filedata?: {filetype?: string; filename?: string; fileurl?: string};
 };
 
 const Img =styled.img`
-    widgth:80px;
+    width:80px;
     height:80px;
     filter: invert(0.5) sepia(1) saturate(5) hue-rotate(175deg);
 `;
@@ -42,7 +41,24 @@ const defaultCardStyles: CSSProperties = {
     border: `1px solid ${cardBorderColor}`,
     borderRadius: 4,
     backgroundColor: "#fff",
+    cursor: "pointer",
 };
+
+/*
+const DefaultCard = styled.div`
+    width: 120;
+    height: 120;
+    border: 1px solid ${cardBorderColor};
+    borderRadius: 4;
+    backgroundColor: "#fff";
+    cursor: "pointer";
+`;
+*/
+/*
+const FileTitle = styled.span`
+    text-align:center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif ;
+`
 
 const Card = ({ style, selected, filedata, ...props }: CardProps) => {
     const cardStyles: CSSProperties = useMemo(() => {
@@ -52,6 +68,7 @@ const Card = ({ style, selected, filedata, ...props }: CardProps) => {
                 ...defaultCardStyles,
                 border: `1px solid ${cardSelectedColor}`,
                 boxShadow: `0 0 4px 2px ${cardSelectedColor}`,
+                color: `${cardSelectedColor}`,
             };
         }
 
@@ -63,7 +80,13 @@ const Card = ({ style, selected, filedata, ...props }: CardProps) => {
 
     return <div style={cardStyles} {...props} />;
 };
-
+/*
+const SelectedCard= styled(Card)`
+    border: 1px solid ${cardSelectedColor};
+    boxshadow: 0 0 4px 2px ${cardSelectedColor};
+    color: ${cardSelectedColor};
+`
+*/
 function CheckFileType(filetype: string | undefined){
     switch(filetype){
         case 'document':
@@ -77,16 +100,11 @@ function CheckFileType(filetype: string | undefined){
     }
 }
 
-/** Just a card holder - no custom logic here only styles */
-
-const CardContainer = ({ children }: { children?: ReactNode }) => {
-    return <CardContianer>{children}</CardContianer>;
-};
-
+/*
 const CardGroupControllableSelect = ({
     items,
 }: {
-    items: { key: Key; filedata?: {filetype?: string; filename?: string; fileurl?: string}; children?: ReactNode }[];
+    items: { key: Key; filedata?: {filetype?: string; filename?: string; fileurl?: string};}[];
 }) => {
     const [selected, onSetSelected] = useState<Set<Key>>(new Set());
     console.log("🚀 ~ App ~ selected:", selected);
@@ -112,9 +130,9 @@ const CardGroupControllableSelect = ({
                         }
                     }}
                 >
-                    <span>{filedata?.filetype}</span>
                     <Img alt="filedata.filetype" src={CheckFileType(filedata?.filetype)}></Img>
-                    <span>{filedata?.filename}</span>
+                    <br></br>
+                    <FileTitle>{filedata?.filename}</FileTitle>
                 </Card>
             ))}
         </CardContainer>
@@ -122,3 +140,5 @@ const CardGroupControllableSelect = ({
 };
 
 export { Card, CardContainer, CardGroupControllableSelect };
+
+*/

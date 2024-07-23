@@ -1,0 +1,164 @@
+import {
+    CSSProperties,
+    HTMLAttributes,
+    Key,
+    useMemo,
+    useState
+} from "react";
+
+import { styled } from "@linaria/react";
+
+const cardBorderColor = "#ddd";
+const cardContainerBorderColor = "#eee";
+const cardSelectedColor = "#218ad9";
+
+const TestingCardContainer = styled.div`
+    padding: 1rem;
+    margin: 1rem;
+    border: 1px solid;
+    border-radius: 4px;
+    display: flex;
+    gap: 1rem;
+    border-color: ${cardContainerBorderColor};
+`;
+
+type SelectionParamsSingle<Data> = {
+    type: 'single';
+    selected: Key;
+    onSelect: (key: Key, record: Data) => void;
+};
+
+type SelectionParamsMultiple<Data> = {
+    type: 'multiple';
+    selected: Set<Key>;
+    onSelect: (keys: Set<Key>, records: Data[]) => void;
+};
+
+type SelectionParams<Data> = SelectionParamsSingle<Data> | SelectionParamsMultiple<Data>;
+
+type CardProps = HTMLAttributes<HTMLDivElement> & {
+    key?: Key;
+    selected?: boolean;
+    filedata?: {filetype?: string; filename?: string; fileurl?: string};
+    selectedtype?: SelectionParams<any>;
+};
+
+const Img =styled.img`
+    width:80px;
+    height:80px;
+    filter: invert(0.5) sepia(1) saturate(5) hue-rotate(175deg);
+`;
+
+const defaultCardStyles: CSSProperties = {
+    width: 120,
+    height: 120,
+    border: `1px solid ${cardBorderColor}`,
+    borderRadius: 4,
+    backgroundColor: "#fff",
+    cursor: "pointer",
+};
+
+/*
+const defaultCardStyles = styled.div`
+    width: 120px;
+    height: 120px;
+    border: 1px solid ${cardBorderColor};
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+`;
+*/
+const FileTitle = styled.span`
+    text-align:center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif ;
+`
+
+const TestingCard = ({ style, selected, filedata, selectedtype, ...props }: CardProps) => {
+    const cardStyles: CSSProperties = useMemo(() => {
+        if (selected) {
+            return {
+                ...style,
+                ...defaultCardStyles,
+                border: `1px solid ${cardSelectedColor}`,
+                boxShadow: `0 0 4px 2px ${cardSelectedColor}`,
+                color: `${cardSelectedColor}`,
+            };
+        }
+
+        return {
+            ...style,
+            ...defaultCardStyles,
+        };
+    }, [style, selected, filedata]);
+
+    return <div style={cardStyles} {...props} />;
+};
+/*
+const SelectedCard= styled(Card)`
+    border: 1px solid ${cardSelectedColor};
+    boxshadow: 0 0 4px 2px ${cardSelectedColor};
+    color: ${cardSelectedColor};
+`
+*/
+function CheckFileType(filetype: string | undefined){
+    switch(filetype){
+        case 'document':
+            return("../src/assets/file-svgrepo-com.svg")
+        case 'video':
+            return("../src/assets/clapperboard-play-svgrepo-com.svg")
+        case 'audio':
+            return("../src/assets/file-audio-svgrepo-com.svg")
+        default:
+            return(undefined)
+    }
+}
+
+const TestingCardGroupControllableSelect = ({
+    items,
+}: {
+    items: { key: Key; filedata?: {filetype?: string; filename?: string; fileurl?: string}; selectedtype?: SelectionParams<any>;}[];
+}) => {
+    const [selected, onSetSelected] = useState<Set<Key>>(new Set());
+    console.log("🚀 ~ App ~ selected:", selected);
+
+    return (
+        <TestingCardContainer>
+            {items.map(({ key, filedata, selectedtype }) => (
+                <TestingCard
+                    key={key}
+                    filedata={filedata}
+                    selected={selected.has(key)}
+                    selectedtype={selectedtype}
+                    onClick={(event) => {
+                        if (event.ctrlKey) {
+                            // Multiple selection mode
+                            if (selected.has(key)) {
+                                onSetSelected((prev) => {
+                                    prev.delete(key);
+                                    return new Set(prev);
+                                });
+                                selectedtype?.onSelect(selected, items.filter(item => selected.has(item.key)));
+                            } else {
+                                onSetSelected((prev) => {
+                                    prev.add(key);
+                                    return new Set(prev);
+                                });
+                                selectedtype?.onSelect(selected, items.filter(item => selected.has(item.key)));
+                            }
+                        } else {
+                            // Single selection mode
+                            onSetSelected(new Set([key]));
+                            selectedtype?.onSelect(key, filedata);
+                        }
+                    }}
+                >
+                    <Img alt="filedata.filetype" src={CheckFileType(filedata?.filetype)}></Img>
+                    <br></br>
+                    <FileTitle>{filedata?.filename}</FileTitle>
+                </TestingCard>
+            ))}
+        </TestingCardContainer>
+    );
+};
+
+export { TestingCard, TestingCardContainer, TestingCardGroupControllableSelect };

@@ -7,46 +7,56 @@ import ResizeHelper from './Grid/ResizeHelper';
 function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(3);
-  const [currentItems, setCurrentItems] = useState<{ key: number; filedata?: { filetype?: string; filename?: string; fileurl?: string}; }[]>([]);
+  const [currentItems, setCurrentItems] = useState<GridItem<FileItem>[]>([]); // Change the type here
   const cardGroupRef = useRef<HTMLDivElement>(null);
 
-  //const items = Array.from({ length: 30 }).map((undefined ,key) => <Card key={key} />);
+  type FileItem = {
+    type: 'doc' | 'txt' | 'mp4';
+    name: string;
+  };
+
+  type GridItem<T> = { key: number; filedata: T };
+
   const items = new Array(
-    {key:1, filedata:{filetype:'document', filename:'doc1'}},
-    {key:2, filedata:{filetype:'document', filename:'doc2'}},
-    {key:3, filedata:{filetype:'audio', filename:'aud1'}},
-    {key:4, filedata:{filetype:'video', filename:'vid1'}},
-    {key:5, filedata:{filetype:'document', filename:'doc3'}},
-    {key:6, filedata:{filetype:'audio', filename:'aud2'}},
-    {key:7, filedata:{filetype:'document', filename:'doc4'}},
-    {key:8, filedata:{filetype:'video', filename:'vid2'}},
-    {key:9, filedata:{filetype:'document', filename:'doc5'}},
-    {key:10, filedata:{filetype:'document', filename:'doc6'}},
-    {key:11, filedata:{filetype:'document', filename:'doc7'}},
-    {key:12, filedata:{filetype:'document', filename:'doc8'}}
-  )
+    { key: 1, filedata: { type: 'doc', name: 'doc1' } },
+    { key: 2, filedata: { name: 'file1' } },
+    { key: 3, filedata: { type: 'txt', name: 'aud1' } },
+    { key: 4, filedata: { type: 'mp4', name: 'vid1' } },
+    { key: 5, filedata: { name: 'file2' } },
+    { key: 6, filedata: { type: 'txt', name: 'aud2' } },
+    { key: 7, filedata: { type: 'doc', name: 'doc2' } },
+    { key: 8, filedata: { type: 'mp4', name: 'vid2' } },
+    { key: 9, filedata: { type: 'doc', name: 'doc3' } },
+    { key: 10, filedata: { type: 'doc', name: 'doc4' } },
+    { key: 11, filedata: { type: 'doc', name: 'doc5' } },
+    { key: 12, filedata: { type: 'doc', name: 'doc6' } }
+  );
 
   useEffect(() => {
     updateCurrentItems();
-  }, [currentPage, itemsPerPage]); // Update only when currentPage or itemsPerPage changes
+  }, [currentPage, itemsPerPage]);
 
   const updateCurrentItems = () => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    setCurrentItems(items.slice(startIndex, endIndex));
+    setCurrentItems(items.slice(startIndex, endIndex) as GridItem<FileItem>[]);
   };
 
   return (
     <>
       <div ref={cardGroupRef}>
-        <Grid items={currentItems} offset={0} className="blue"/>
+        <Grid<FileItem> items={currentItems} className="blue" />
       </div>
 
       <ResizeHelper
         containerRef={cardGroupRef}
         cardWidth={120}
-        onResize={setItemsPerPage}
+        onResize={(itemsPerPage, newCurrentPage) => {
+            setItemsPerPage(itemsPerPage);
+            setCurrentPage(newCurrentPage);
+        }}
         itemslength={items.length}
+        currentPage={currentPage}
       />
 
       <Pagination

@@ -5,9 +5,11 @@ import {
 
 import { styled } from "@linaria/react";
 
-type CardProps = HTMLAttributes<HTMLDivElement> & {
+type FileData = { type?: string; name?: string; url?: string };
+
+type CardProps<T extends FileData> = HTMLAttributes<HTMLDivElement> & {
     key?: Key;
-    filedata?: {filetype?: string; filename?: string; fileurl?: string};
+    filedata: T;
 };
 
 const Img =styled.img`
@@ -22,24 +24,26 @@ const FileTitle = styled.span`
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif ;
     user-select: none;
 `
-function CheckFileType(filetype: string | undefined){
-    switch(filetype){
+function CheckType(type: string | undefined){
+    switch(type){
         case 'document':
-            return("../src/assets/file-svgrepo-com.svg")
+            return("../src/assets/file-alt-svgrepo-com.svg")
         case 'video':
             return("../src/assets/clapperboard-play-svgrepo-com.svg")
         case 'audio':
             return("../src/assets/file-audio-svgrepo-com.svg")
         default:
-            return(undefined)
+            return("../src/assets/file-svgrepo-com.svg")
     }
 }
 
-const Card = ({ filedata }: CardProps) => {
+const Card = <T extends FileData>({ filedata }: CardProps<T>) => {
     return(
-        <><Img alt="filedata.filetype" src={CheckFileType(filedata?.filetype)} draggable="false"></Img>
+        <>
+        <Img alt="filedata.type" src={CheckType(filedata?.type)} draggable="false"></Img>
         <br></br>
-        <FileTitle>{filedata?.filename}</FileTitle></>
+        <FileTitle>{filedata?.name}</FileTitle>
+        </>
     );
 };
 

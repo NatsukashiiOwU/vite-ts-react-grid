@@ -3,10 +3,12 @@ import { useState } from 'react';
 import Card from './Card';
 import './index.css';
 
-function Grid({ items, offset, className }: {
-    offset: number;
+type GridItem<T> = { key: number; filedata: T };
+type FileData = { type?: string; name?: string; url?: string };
+
+function Grid<T extends FileData>({ items, className }: {
+    items: GridItem<T>[];
     className: string;
-    items?: {key: number; filedata?: {filetype?: string; filename?: string; fileurl?: string};}[];
 }) {
     const [selected, setSelected] = useState<Set<number>>(() => new Set());
 
@@ -36,14 +38,15 @@ function Grid({ items, offset, className }: {
             onStart={onStart}
             onMove={onMove}
             selectables=".selectable">
-            {items?.map((item, index) => (
+            {items?.map((item) => (
                 <div className={selected.has(item.key) ? 'selected selectable' : 'selectable'}
                     data-key={item.key}
                     key={item.key}>
-                <Card filedata={item.filedata}></Card>
+                    <Card filedata={item.filedata} />
                 </div>
             ))}
         </SelectionArea>
     );
 }
 export default Grid;
+

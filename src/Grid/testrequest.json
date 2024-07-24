@@ -1,0 +1,106 @@
+{
+    "container": {
+        "uuid": "83a0edfd-2ee9-403d-8b4b-23697f390316",
+        "type_id": 1,
+        "container_uuid": null,
+        "is_deleted": false,
+        "create_datetime": "24.07.2024 10:20:53",
+        "modify_datetime": null,
+        "authority": {
+            "id": null,
+            "title": null,
+            "short_title": null,
+            "logo_uuid": null
+        },
+        "created_by": {
+            "id": null,
+            "print_name": null,
+            "short_name": null
+        },
+        "modified_by": {
+            "id": null,
+            "print_name": null,
+            "short_name": null
+        },
+        "title": {
+            "t": {
+                "en": "Container of field  d2_document",
+                "ru": "Контейнер поля  d2_document"
+            }
+        },
+        "content_type": 2,
+        "external_id": null
+    },
+    "items": [
+        {
+            "uuid": "2622edac-bab7-4006-9f6f-a96b2441a3ef",
+            "type_id": 2,
+            "container_uuid": "83a0edfd-2ee9-403d-8b4b-23697f390316",
+            "is_deleted": false,
+            "create_datetime": "24.07.2024 12:29:25",
+            "modify_datetime": null,
+            "authority": {
+                "id": null,
+                "title": null,
+                "short_title": null,
+                "logo_uuid": null
+            },
+            "created_by": {
+                "id": null,
+                "print_name": null,
+                "short_name": null
+            },
+            "modified_by": {
+                "id": null,
+                "print_name": null,
+                "short_name": null
+            },
+            "title": {
+                "t": {
+                    "en": "k",
+                    "ru": "к"
+                }
+            },
+            "link": "https://sun9-49.userapi.com/impg/p4R76eJ5IFnvxVjDq-4KvaI5eBVFK2i5B2mDFg/JAQNLf3wq0k.jpg?size=1079x1258&quality=95&sign=941016a437fd78c5813936bddbb93efc&type=album",
+            "type": "image"
+        },
+        {
+            "uuid": "5be77318-0d1b-4aaf-b94c-b4c9244a5291",
+            "type_id": 2,
+            "container_uuid": "83a0edfd-2ee9-403d-8b4b-23697f390316",
+            "is_deleted": false,
+            "create_datetime": "24.07.2024 12:29:45",
+            "modify_datetime": null,
+            "authority": {
+                "id": null,
+                "title": null,
+                "short_title": null,
+                "logo_uuid": null
+            },
+            "created_by": {
+                "id": null,
+                "print_name": null,
+                "short_name": null
+            },
+            "modified_by": {
+                "id": null,
+                "print_name": null,
+                "short_name": null
+            },
+            "title": {
+                "t": {
+                    "en": "2",
+                    "ru": "2"
+                }
+            },
+            "link": "https://sun9-36.userapi.com/impg/Upknu_iaN6s_3a45qxa7jMTJQO1ute6j-FAG5w/JY-wRCYo8-w.jpg?size=720x720&quality=95&sign=a2cc71ed0044257562c2a0235cea8daf&type=album",
+            "type": "image"
+        }
+    ],
+    "_pagination": {
+        "page": 1,
+        "page_count": 0,
+        "total_count": 2,
+        "per_page": 20
+    }
+}

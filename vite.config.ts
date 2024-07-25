@@ -50,6 +50,10 @@ export default defineConfig(({ command }) => {
           input: 'electron/preload/index.ts',
           vite: {
             build: {
+              lib: {
+                entry: '..\src\Grid\GridContainer.tsx',
+                name: 'Grid'
+              },
               sourcemap: sourcemap ? 'inline' : undefined, // #332
               minify: isBuild,
               outDir: 'dist-electron/preload',

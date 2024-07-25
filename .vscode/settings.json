@@ -9,5 +9,8 @@
       ],
       "url": "https://json.schemastore.org/electron-builder"
     }
-  ]
+  ],
+  "CodeGPT.apiKey": "Google AI Studio",
+  "CodeGPT.Autocomplete.enabled": false,
+  "CodeGPT.Autocomplete.provider": "OpenAI - gpt-3.5-turbo-instruct"
 }

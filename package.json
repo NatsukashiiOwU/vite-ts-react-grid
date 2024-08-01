@@ -39,7 +39,7 @@
     "@wyw-in-js/babel-preset": "^0.5.4",
     "@wyw-in-js/vite": "^0.5.4",
     "autoprefixer": "^10.4.18",
-    "electron": "^29.1.1",
+    "electron": "^31.3.1",
     "electron-builder": "^24.13.3",
     "postcss": "^8.4.35",
     "postcss-import": "^16.0.1",
